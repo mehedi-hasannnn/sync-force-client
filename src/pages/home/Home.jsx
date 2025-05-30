@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <div>
       <Helmet>
-        <title>Home | WorkForce Pro</title>
+        <title>Home | Sync Force</title>
       </Helmet>
       <Banner></Banner>
       <OurServices></OurServices>

@@ -10,10 +10,10 @@ import {
   FaBars,
   FaTimes,
 } from "react-icons/fa";
+import { FaRegMessage } from "react-icons/fa6";
 import useRole from "../customHooks/useRole";
 import LoadingSpinner from "../components/LoadingSpinner";
 import useAuth from "../customHooks/useAuth";
-import {FaRegMessage } from "react-icons/fa6";
 
 export default function DashBoardLayout() {
   const { user } = useAuth();
@@ -21,158 +21,85 @@ export default function DashBoardLayout() {
   const { isAdmin, isHR, isEmployee } = role || {};
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
-  if (loading) {
-    return <LoadingSpinner />;
-  }
+  if (loading) return <LoadingSpinner />;
+
+  const renderNavLink = (to, icon, label) => (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `flex items-center gap-3 py-2 px-4 rounded-xl transition-all ${
+          isActive ? "bg-secondary text-white" : "hover:bg-secondary/80"
+        }`
+      }
+    >
+      {icon}
+      {label}
+    </NavLink>
+  );
 
   const navLinks = (
-    <nav className="space-y-4 text-lg">
+    <nav className="space-y-3 text-base font-medium">
       {isEmployee && (
         <>
-          <NavLink
-            to="work-sheet"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-2 px-4 rounded ${
-                isActive ? "bg-secondary" : "hover:bg-secondary"
-              }`
-            }
-          >
-            <FaTasks className="text-xl" />
-            Work Sheet
-          </NavLink>
-          <NavLink
-            to="payment-history"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-2 px-4 rounded ${
-                isActive ? "bg-secondary" : "hover:bg-secondary"
-              }`
-            }
-          >
-            <FaMoneyCheckAlt className="text-xl" />
-            Payment History
-          </NavLink>
+          {renderNavLink("work-sheet", <FaTasks className="text-lg" />, "Work Sheet")}
+          {renderNavLink("payment-history", <FaMoneyCheckAlt className="text-lg" />, "Payment History")}
         </>
       )}
 
       {isHR && (
         <>
-          <NavLink
-            to="employee-list"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-2 px-4 rounded ${
-                isActive ? "bg-secondary" : "hover:bg-secondary"
-              }`
-            }
-          >
-            <FaUsers className="text-xl" />
-            Employee List
-          </NavLink>
-          <NavLink
-            to="progress"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-2 px-4 rounded ${
-                isActive ? "bg-secondary" : "hover:bg-secondary"
-              }`
-            }
-          >
-            <FaChartLine className="text-xl" />
-            Progress
-          </NavLink>
+          {renderNavLink("employee-list", <FaUsers className="text-lg" />, "Employee List")}
+          {renderNavLink("progress", <FaChartLine className="text-lg" />, "Progress")}
         </>
       )}
 
       {isAdmin && (
         <>
-          <NavLink
-            to="all-employees"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-2 px-4 rounded ${
-                isActive ? "bg-secondary" : "hover:bg-secondary"
-              }`
-            }
-          >
-            <FaUsers className="text-xl" />
-            All Employees
-          </NavLink>
-          <NavLink
-            to="payroll"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-2 px-4 rounded ${
-                isActive ? "bg-secondary" : "hover:bg-secondary"
-              }`
-            }
-          >
-            <FaMoneyCheckAlt className="text-xl" />
-            Payroll
-          </NavLink>
-          <NavLink
-            to="inquiries"
-            className={({ isActive }) =>
-              `flex items-center gap-3 py-2 px-4 rounded ${
-                isActive ? "bg-secondary" : "hover:bg-secondary"
-              }`
-            }
-          >
-            <FaRegMessage className="text-xl" />
-            Inquiries
-          </NavLink>
+          {renderNavLink("all-employees", <FaUsers className="text-lg" />, "All Employees")}
+          {renderNavLink("payroll", <FaMoneyCheckAlt className="text-lg" />, "Payroll")}
+          {renderNavLink("inquiries", <FaRegMessage className="text-lg" />, "Inquiries")}
         </>
       )}
 
-      <div className="border-t border-secondary my-6"></div>
+      <div className="border-t border-white/30 my-4"></div>
 
-      {user && (
-        <NavLink
-          to="/"
-          className={({ isActive }) =>
-            `flex items-center gap-3 py-2 px-4 rounded ${
-              isActive ? "bg-secondary" : "hover:bg-secondary"
-            }`
-          }
-        >
-          <FaHome className="text-xl" />
-          Home
-        </NavLink>
-      )}
+      {user && renderNavLink("/", <FaHome className="text-lg" />, "Home")}
     </nav>
   );
 
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-background text-text">
-      {/* Sidebar for Large Screens */}
-      <aside className="hidden lg:block w-64 bg-primary text-white p-4 lg:sticky top-0 h-screen overflow-y-auto">
-        <Link to="/">
-          <h2 className="text-2xl font-bold mb-6">WorkForce Pro</h2>
+      {/* Desktop Sidebar */}
+      <aside className="hidden lg:flex flex-col w-64 bg-primary text-white p-6 sticky top-0 h-screen overflow-y-auto">
+        <Link to="/" className="mb-6">
+          <h2 className="text-2xl font-bold tracking-wide">Sync Force</h2>
         </Link>
         {navLinks}
       </aside>
 
-      {/* Navbar for Medium and Small Screens */}
-      <nav className="lg:hidden bg-primary text-white sticky top-0 w-full p-4 flex items-center justify-between z-10">
-        <Link to="/" className="text-xl font-bold">
-          WorkForce Pro
-        </Link>
+      {/* Mobile Navbar */}
+      <nav className="lg:hidden flex items-center justify-between bg-primary text-white p-4 sticky top-0 z-30">
+        <Link to="/" className="text-xl font-bold">Sync Force</Link>
         <button onClick={() => setIsDrawerOpen(true)}>
           <FaBars className="text-2xl" />
         </button>
       </nav>
 
-      {/* Drawer */}
+      {/* Mobile Drawer */}
       {isDrawerOpen && (
         <>
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-20"
+            className="fixed inset-0 bg-black/60 z-40"
             onClick={() => setIsDrawerOpen(false)}
           ></div>
-          <div className="fixed right-0 top-0 h-full w-64 bg-primary text-white p-4 z-30 overflow-y-auto">
-            <button
-              className="flex items-center justify-end w-full mb-6"
-              onClick={() => setIsDrawerOpen(false)}
-            >
-              <FaTimes className="text-2xl" />
-            </button>
-            <Link to="/">
-              <h2 className="text-2xl font-bold mb-6">WorkForce Pro</h2>
+          <div className="fixed top-0 right-0 h-full w-64 bg-primary text-white p-6 z-50 shadow-xl overflow-y-auto">
+            <div className="flex justify-end mb-4">
+              <button onClick={() => setIsDrawerOpen(false)}>
+                <FaTimes className="text-2xl" />
+              </button>
+            </div>
+            <Link to="/" className="block mb-6">
+              <h2 className="text-2xl font-bold tracking-wide">Sync Force</h2>
             </Link>
             {navLinks}
           </div>
@@ -180,7 +107,7 @@ export default function DashBoardLayout() {
       )}
 
       {/* Main Content */}
-      <main className="flex-1 p-4 lg:p-6 overflow-y-auto">
+      <main className="flex-1 p-4 lg:p-6 overflow-y-auto bg-background">
         <Outlet />
       </main>
     </div>

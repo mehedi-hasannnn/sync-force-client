@@ -1,40 +1,57 @@
 import React, { useState } from "react";
 import { Zoom } from "react-awesome-reveal";
 import ReactCardFlip from "react-card-flip";
-import { FaChartLine, FaLock, FaPlug, FaSyncAlt } from "react-icons/fa";
+import {
+  FaCloud,
+  FaShieldAlt,
+  FaBolt,
+  FaCogs,
+} from "react-icons/fa";
+
+const features = [
+  {
+    id: 1,
+    title: "Cloud-Based Access",
+    description:
+      "Work from anywhere with our fully cloud-hosted platform—secure, fast, and always available.",
+    iconFront: <FaCloud className="text-white text-5xl" />,
+    iconBack: "☁️",
+    bgFront: "bg-blue-600",
+    bgBack: "bg-blue-700",
+  },
+  {
+    id: 2,
+    title: "Top-Tier Security",
+    description:
+      "We prioritize your privacy with enterprise-grade encryption and secure authentication protocols.",
+    iconFront: <FaShieldAlt className="text-white text-5xl" />,
+    iconBack: "🛡️",
+    bgFront: "bg-emerald-600",
+    bgBack: "bg-emerald-700",
+  },
+  {
+    id: 3,
+    title: "Lightning Fast Sync",
+    description:
+      "Real-time data syncing ensures you're always working with the most up-to-date information.",
+    iconFront: <FaBolt className="text-white text-5xl" />,
+    iconBack: "⚡",
+    bgFront: "bg-yellow-600",
+    bgBack: "bg-yellow-700",
+  },
+  {
+    id: 4,
+    title: "Smart Integrations",
+    description:
+      "Effortlessly integrate with your favorite apps and services—no coding required.",
+    iconFront: <FaCogs className="text-white text-5xl" />,
+    iconBack: "⚙️",
+    bgFront: "bg-purple-600",
+    bgBack: "bg-purple-700",
+  },
+];
 
 const FeaturesOverview = () => {
-  const features = [
-    {
-      id: 1,
-      title: "Advanced Analytics",
-      description: "Gain valuable insights with our robust analytics tools.",
-      icon: "📊",
-      icon1: <FaChartLine className="text-white text-5xl" />,
-    },
-    {
-      id: 2,
-      title: "Secure Data Storage",
-      description: "Your data is protected with industry-leading encryption.",
-      icon: "🔒",
-      icon1: <FaLock className="text-white text-5xl" />,
-    },
-    {
-      id: 3,
-      title: "Real-Time Updates",
-      description: "Get instant notifications and updates without delays.",
-      icon: "⏱",
-      icon1: <FaSyncAlt className="text-white text-5xl" />,
-    },
-    {
-      id: 4,
-      title: "Easy Integrations",
-      description: "Seamlessly connect with your favorite third-party tools.",
-      icon: "🔌",
-      icon1: <FaPlug className="text-white text-5xl" />,
-    },
-  ];
-
   const [flippedCards, setFlippedCards] = useState({});
 
   const handleFlip = (id) => {
@@ -42,16 +59,17 @@ const FeaturesOverview = () => {
   };
 
   return (
-    <section className="bg-gray-100 py-16">
-      <div className="max-w-7xl mx-auto text-center">
-        <h2 className="text-primary text-3xl md:text-4xl font-bold mb-6">
-          Our Key Features
+    <section className="bg-white py-16">
+      <div className="max-w-7xl mx-auto text-center px-4">
+        <h2 className="text-4xl font-bold text-gray-800 mb-4">
+          Core Platform Features
         </h2>
-        <p className="text-lg text-secondary mb-6 md:mb-12">
-          Simplifying workforce management with powerful tools for every need.
+        <p className="text-lg text-gray-600 mb-12">
+          Unlock powerful tools built for modern workforce management—simple, secure, and scalable.
         </p>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
-          <Zoom cascade damping={0.1}>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <Zoom cascade damping={0.1} triggerOnce>
             {features.map((feature) => (
               <ReactCardFlip
                 key={feature.id}
@@ -60,24 +78,22 @@ const FeaturesOverview = () => {
               >
                 {/* Front Side */}
                 <div
-                  className="flex flex-col items-center justify-center w-full h-44 bg-primary shadow-md rounded-lg cursor-pointer hover:bg-accent transition-colors duration-300"
+                  className={`flex flex-col items-center justify-center h-48 rounded-2xl shadow-lg p-6 cursor-pointer transition-transform duration-300 transform hover:-translate-y-1 ${feature.bgFront}`}
                   onClick={() => handleFlip(feature.id)}
                 >
-                  <span className="text-5xl mb-4 text-white">
-                    {feature.icon1}
-                  </span>
-                  <h3 className="text-xl font-semibold text-white">
+                  {feature.iconFront}
+                  <h3 className="text-white text-xl font-semibold mt-4">
                     {feature.title}
                   </h3>
                 </div>
 
                 {/* Back Side */}
                 <div
-                  className="flex flex-col items-center justify-center w-full h-44 bg-accent shadow-md rounded-lg p-6 text-white cursor-pointer"
+                  className={`flex flex-col items-center justify-center h-48 rounded-2xl shadow-lg p-6 text-white cursor-pointer ${feature.bgBack}`}
                   onClick={() => handleFlip(feature.id)}
                 >
-                  <span className="text-5xl mb-4">{feature.icon}</span>
-                  <p className="text-lg">{feature.description}</p>
+                  <span className="text-4xl mb-2">{feature.iconBack}</span>
+                  <p className="text-base">{feature.description}</p>
                 </div>
               </ReactCardFlip>
             ))}

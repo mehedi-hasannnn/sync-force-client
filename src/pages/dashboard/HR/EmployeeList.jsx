@@ -161,7 +161,7 @@ export default function EmployeeList() {
   return (
     <>
       <Helmet>
-        <title>Employees | WorkForce Pro</title>
+        <title>Employees | Sync Force</title>
       </Helmet>
       <div className="container mx-auto px-4 py-6">
         <h2 className="text-2xl font-bold text-primary mb-4">Employee List</h2>

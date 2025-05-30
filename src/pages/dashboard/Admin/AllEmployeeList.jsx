@@ -99,7 +99,7 @@ export default function AllEmployeeList() {
   return (
     <div className="container mx-auto px-4 py-6">
       <Helmet>
-        <title>Verified Employees | WorkForce Pro</title>
+        <title>Verified Employees | Sync Force</title>
       </Helmet>
       <h2 className="text-2xl font-bold text-primary mb-6">
         All Verified Employees

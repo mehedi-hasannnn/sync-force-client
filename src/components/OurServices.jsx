@@ -1,104 +1,103 @@
 import React from "react";
 import { motion } from "framer-motion";
 import {
-  FaUserTie,
-  FaTasks,
-  FaMoneyCheckAlt,
-  FaChartLine,
-  FaDatabase,
-  FaUsers,
-  FaFileContract,
+  FaUserCheck,
+  FaLaptopCode,
+  FaWallet,
+  FaRegChartBar,
+  FaPeopleArrows,
   FaChartPie,
+  FaShieldAlt,
+  FaFileAlt,
 } from "react-icons/fa";
 
 const services = [
   {
     id: 1,
-    title: "Employee Management",
+    title: "Smart HR Management",
     description:
-      "Organize and oversee employee data, schedules, and profiles seamlessly through intuitive tools tailored for scalability.",
-    icon: <FaUserTie />,
-    bgColor: "bg-primary",
+      "Seamlessly handle employee records, attendance, and engagement with powerful HR workflows.",
+    icon: <FaUserCheck />,
+    bgColor: "bg-[#1f2937]",
   },
   {
     id: 2,
-    title: "HR Solutions",
+    title: "Automated Task Scheduling",
     description:
-      "Streamline HR operations, including recruitment, training, and onboarding, to enhance workforce efficiency and satisfaction.",
-    icon: <FaTasks />,
-    bgColor: "bg-secondary",
+      "Assign, monitor, and optimize tasks with intelligent scheduling to boost productivity.",
+    icon: <FaLaptopCode />,
+    bgColor: "bg-[#111827]",
   },
   {
     id: 3,
-    title: "Payroll Processing",
+    title: "Secure Payroll System",
     description:
-      "Simplify payroll management with automated calculations, tax compliance, and secure payment processing.",
-    icon: <FaMoneyCheckAlt />,
-    bgColor: "bg-gray-500",
+      "Ensure timely, accurate, and compliant payroll management with integrated financial tools.",
+    icon: <FaWallet />,
+    bgColor: "bg-[#1f2937]",
   },
   {
     id: 4,
-    title: "Performance Tracking",
+    title: "Advanced Performance Insights",
     description:
-      "Track employee performance with detailed analytics and feedback tools to foster growth and development.",
-    icon: <FaChartLine />,
-    bgColor: "bg-accent",
+      "Visualize employee performance through comprehensive dashboards and real-time KPIs.",
+    icon: <FaRegChartBar />,
+    bgColor: "bg-[#111827]",
   },
   {
     id: 5,
-    title: "Team Collaboration",
+    title: "Collaborative Team Spaces",
     description:
-      "Boost teamwork with integrated collaboration tools designed for real-time communication and project management.",
-    icon: <FaUsers />,
-    bgColor: "bg-secondary",
+      "Enhance internal communication with centralized chat, file sharing, and project updates.",
+    icon: <FaPeopleArrows />,
+    bgColor: "bg-[#1f2937]",
   },
   {
     id: 6,
-    title: "Workforce Analytics",
+    title: "Real-Time Workforce Analytics",
     description:
-      "Leverage powerful analytics to make data-driven decisions and optimize workforce productivity.",
-    icon: <FaDatabase />,
-    bgColor: "bg-primary",
+      "Make smarter decisions with real-time data analysis on staffing trends and resource use.",
+    icon: <FaChartPie />,
+    bgColor: "bg-[#111827]",
   },
   {
     id: 7,
-    title: "Compliance Management",
+    title: "Compliance & Audit Tools",
     description:
-      "Ensure regulatory compliance with built-in tools for policy management, audits, and reporting.",
-    icon: <FaFileContract />,
-    bgColor: "bg-accent",
+      "Stay audit-ready with policy tracking, digital documentation, and compliance monitoring.",
+    icon: <FaShieldAlt />,
+    bgColor: "bg-[#1f2937]",
   },
   {
     id: 8,
-    title: "Custom Reporting",
+    title: "Custom Reports & Export",
     description:
-      "Generate detailed, customizable reports to gain insights into workforce trends and metrics.",
-    icon: <FaChartPie />,
-    bgColor: "bg-gray-500",
+      "Generate and export tailored reports to gain critical insights and support decisions.",
+    icon: <FaFileAlt />,
+    bgColor: "bg-[#111827]",
   },
 ];
 
 export default function OurServices() {
   return (
-    <section className="bg-background  py-16">
-      <div className="mx-4 lg:mx-14 text-center">
+    <section className="bg-[#0f172a] py-20 mt-5">
+      <div className="mx-4 lg:mx-16 text-center">
         <motion.h2
-          className="text-primary md:w-10/12 lg:w-6/12 mx-auto text-3xl md:text-4xl font-bold mb-6"
+          className="text-3xl md:text-4xl font-bold text-white mb-6"
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
         >
-          Efficient Workforce Management at Your Fingertips
+          Comprehensive Workforce Management Solutions
         </motion.h2>
         <motion.p
-          className="text-lg text-secondary mb-6 md:mb-12 md:w-10/12 lg:w-7/12 mx-auto"
+          className="text-lg text-gray-300 mb-12 max-w-3xl mx-auto"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          Manage your team effortlessly with WorkForce Pro. From tracking tasks
-          to handling payroll, our platform makes employee management simple,
-          efficient, and secure. Everything you need, all in one place!
+          From recruitment to retirement, Sync Force empowers your HR and admin
+          teams to manage operations efficiently with real-time insights and automation.
         </motion.p>
 
         {/* Services Grid */}
@@ -106,20 +105,17 @@ export default function OurServices() {
           {services.map((service, index) => (
             <motion.div
               key={service.id}
-              className={`flex flex-col items-center rounded-lg shadow-lg p-6 ${service.bgColor} transition-transform transform hover:-translate-y-2`}
+              className={`flex flex-col items-center rounded-2xl p-6 ${service.bgColor} hover:bg-[#1e40af] transition duration-300 shadow-lg`}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true, amount: 0.2 }}
-              transition={{
-                duration: 0.6,
-                delay: index * 0.2,
-              }}
+              transition={{ duration: 0.5, delay: index * 0.15 }}
             >
-              <div className="text-5xl text-white mb-4">{service.icon}</div>
-              <h3 className="text-xl font-bold text-white mb-3">
+              <div className="text-4xl text-emerald-400 mb-4">{service.icon}</div>
+              <h3 className="text-xl font-semibold text-white mb-2">
                 {service.title}
               </h3>
-              <p className="text-sm text-white">{service.description}</p>
+              <p className="text-sm text-gray-300 text-center">{service.description}</p>
             </motion.div>
           ))}
         </div>

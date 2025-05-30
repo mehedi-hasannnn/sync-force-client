@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { FaChevronDown, FaChevronUp } from "react-icons/fa";
 
 export default function FAQ() {
   const [activeIndex, setActiveIndex] = useState(null);
@@ -7,33 +8,33 @@ export default function FAQ() {
   const faqs = [
     {
       id: 1,
-      question: "What features does WorkForce Pro offer?",
+      question: "What features does Sync Force offer?",
       answer:
-        "WorkForce Pro includes features such as employee management, payroll processing, HR solutions, performance tracking, team collaboration, and compliance management.",
+        "Sync Force includes employee management, payroll processing, HR automation, performance tracking, team collaboration, and compliance management tools.",
     },
     {
       id: 2,
-      question: "Is WorkForce Pro compatible with mobile devices?",
+      question: "Is Sync Force compatible with mobile devices?",
       answer:
-        "Yes, WorkForce Pro is optimized for both desktop and mobile devices, offering a smooth experience on smartphones and tablets.",
+        "Absolutely. Our platform is fully responsive and works seamlessly across desktops, tablets, and mobile phones.",
     },
     {
       id: 3,
-      question: "How secure is the data in WorkForce Pro?",
+      question: "How secure is the data in Sync Force?",
       answer:
-        "We use industry-standard encryption and secure cloud storage to ensure your data is safe. Our platform complies with all relevant data protection regulations.",
+        "We implement enterprise-grade encryption and cloud security standards, ensuring full compliance with GDPR and other global regulations.",
     },
     {
       id: 4,
-      question: "What industries is this tool best suited for?",
+      question: "What industries is Sync Force best suited for?",
       answer:
-        "WorkForce Pro is ideal for industries such as human resources, retail, manufacturing, healthcare, technology, and professional services, where employee management, compliance, and performance tracking are essential.",
+        "Sync Force is built for industries like HR, healthcare, education, tech, and manufacturing—essentially any sector where managing people and performance is a priority.",
     },
     {
       id: 5,
-      question: "How can I get support for WorkForce Pro?",
+      question: "How can I get support for Sync Force?",
       answer:
-        "Our customer support team is available 24/7 via email, live chat, or phone. We also provide a comprehensive knowledge base for self-help.",
+        "Our support team is available 24/7 via chat, email, and phone. You’ll also find detailed guides and video tutorials in our help center.",
     },
   ];
 
@@ -42,37 +43,59 @@ export default function FAQ() {
   };
 
   return (
-    <section className="py-16 bg-background text-text">
-      <div className="container mx-auto px-4 text-center">
-        <motion.h2
-          className="text-primary text-3xl md:text-4xl font-bold mb-12"
-          initial={{ opacity: 0, y: -50 }}
+    <section className="py-16 bg-gray-50 text-gray-800">
+      <div className="container mx-auto px-4">
+        {/* Section Title */}
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: -30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 0.6 }}
         >
-          Frequently Asked Questions
-        </motion.h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            Frequently Asked Questions
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Everything you need to know about Sync Force—our features, security,
+            support, and compatibility.
+          </p>
+        </motion.div>
 
-        <div className="w-full max-w-xl mx-auto">
+        {/* FAQ Accordion */}
+        <div className="max-w-2xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
             <motion.div
               key={faq.id}
-              className="mb-6"
+              className="border border-gray-200 rounded-lg shadow-sm overflow-hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6 }}
+              transition={{ delay: index * 0.1 }}
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full text-left py-4 px-6 bg-primary text-white font-semibold text-lg border-b border-gray-300"
+                className="w-full flex justify-between items-center px-6 py-4 bg-white text-left text-lg font-medium text-gray-900 focus:outline-none hover:bg-gray-50 transition"
               >
                 {faq.question}
+                {activeIndex === index ? (
+                  <FaChevronUp className="text-primary" />
+                ) : (
+                  <FaChevronDown className="text-gray-400" />
+                )}
               </button>
-              {activeIndex === index && (
-                <div className="py-4 px-6 bg-gray-100 text-text/90">
-                  <p>{faq.answer}</p>
-                </div>
-              )}
+
+              <AnimatePresence>
+                {activeIndex === index && (
+                  <motion.div
+                    className="px-6 pb-5 pt-2 bg-gray-50 text-gray-700"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <p className="text-sm">{faq.answer}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </motion.div>
           ))}
         </div>

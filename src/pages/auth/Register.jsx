@@ -81,7 +81,7 @@ export default function Register() {
   return (
     <div className=" bg-background flex items-center justify-center py-2">
       <Helmet>
-        <title>Register | WorkForce Pro</title>
+        <title>Register | Sync Force</title>
       </Helmet>
       <div className="bg-white p-8 rounded-3xl shadow-xl w-full sm:w-[500px]">
         <h2 className="text-3xl font-bold text-center text-primary mb-6">

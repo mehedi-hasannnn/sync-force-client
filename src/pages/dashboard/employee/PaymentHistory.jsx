@@ -62,7 +62,7 @@ export default function PaymentHistory() {
   return (
     <div className="container mx-auto px-4 py-6">
       <Helmet>
-        <title>Payment History | WorkForce Pro</title>
+        <title>Payment History | Sync Force</title>
       </Helmet>
       <h2 className="text-2xl font-bold text-primary mb-4">Payment History</h2>
       <div className="overflow-x-auto rounded-lg lg:h-80">

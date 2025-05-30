@@ -54,7 +54,7 @@ export default function Payroll() {
   return (
     <div className="container mx-auto px-4 py-6">
        <Helmet>
-              <title>Payroll | WorkForce Pro</title>
+              <title>Payroll | Sync Force</title>
             </Helmet>
       <h2 className="text-2xl font-bold text-primary mb-6">Employee Payroll</h2>
 

@@ -12,82 +12,32 @@ export default function Navbar() {
     logoutUser()
       .then(() => {
         setUser(null);
-        toast.error("User Logged out");
+        toast.success("Logged out successfully");
         setDropdownOpen(false);
       })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      .catch((error) => console.log(error.message));
   };
 
   const getNavLinkClass = ({ isActive }) =>
     isActive
-      ? "text-lg px-2 py-1 text-white font-semibold border-b-2 border-accent"
-      : "text-lg px-2 py-1 text-white font-semibold";
+      ? "text-white font-semibold px-3 py-2 rounded-md bg-emerald-600"
+      : "text-slate-100 font-medium px-3 py-2 hover:bg-emerald-700/20 rounded-md transition";
 
   return (
-    <nav className="bg-primary text-background sticky top-0 z-50 px-4 py-3 shadow-md">
-      <div className="lg:mx-10 flex justify-between items-center">
-        {/* Logo */}
-        <div className="logo">
-          <NavLink to="/" className="text-2xl font-bold text-background">
-            WorkForce Pro
-          </NavLink>
-        </div>
+    <nav className="bg-slate-800 text-white sticky top-0 z-50 shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3">
+        <NavLink to="/" className="text-2xl font-bold tracking-wide text-emerald-400">
+          Sync Force
+        </NavLink>
 
-        {/* Hamburger Menu Icon for Mobile */}
+        {/* Mobile menu toggle */}
         <div className="sm:hidden">
           <button
             onClick={() => setMenuOpen(!menuOpen)}
-            className="text-background focus:outline-none"
-          >
-            {menuOpen ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="w-6 h-6"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-
-        {/* Drawer Menu for Small Devices */}
-        <div
-          className={`fixed inset-y-0 right-0 w-64 bg-background shadow-lg transform transition-transform duration-300 sm:hidden ${
-            menuOpen ? "translate-x-0" : "translate-x-full"
-          }`}
-        >
-          <button
-            className="absolute top-4 left-4 text-text"
-            onClick={() => setMenuOpen(false)}
+            className="focus:outline-none"
           >
             <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="w-6 h-6"
+              className="w-6 h-6 text-white"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -96,75 +46,14 @@ export default function Navbar() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="M6 18L18 6M6 6l12 12"
+                d={menuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
               />
             </svg>
           </button>
-          <ul className="mt-12 space-y-4 px-6">
-            <li>
-              <Link to="/" className="text-lg px-4 py-2 text-primary font-semibold" onClick={() => setMenuOpen(false)}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact"
-                className="text-lg px-4 py-2 text-primary font-semibold"
-                onClick={() => setMenuOpen(false)}
-              >
-                Contact Us
-              </Link>
-            </li>
-            {user ? (
-              <>
-                <li>
-                  <Link
-                    to="/dashboard"
-                    className="text-lg px-4 py-2 text-primary font-semibold"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <button
-                    className="block bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600 transition"
-                    onClick={() => {
-                      handleLogout();
-                      setMenuOpen(false);
-                    }}
-                  >
-                    Logout
-                  </button>
-                </li>
-              </>
-            ) : (
-              <>
-                <li>
-                  <NavLink
-                    to="/auth/login"
-                    className="block text-lg bg-primary text-white px-4 py-2 rounded-md hover:bg-secondary"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Login
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/auth/register"
-                    className="block text-lg bg-secondary text-white px-4 py-2 rounded-md hover:bg-primary"
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    Register
-                  </NavLink>
-                </li>
-              </>
-            )}
-          </ul>
         </div>
 
-        {/* Navbar Links for Medium and Large Devices */}
-        <div className="hidden sm:flex sm:items-center sm:gap-6">
+        {/* Desktop nav */}
+        <div className="hidden sm:flex items-center gap-6">
           <NavLink to="/" className={getNavLinkClass}>
             Home
           </NavLink>
@@ -179,15 +68,16 @@ export default function Navbar() {
               <div className="relative">
                 <img
                   src={user.photoURL}
-                  alt="User Avatar"
-                  className="w-10 h-10 rounded-full cursor-pointer"
+                  alt="User"
+                  className="w-10 h-10 rounded-full border-2 border-white cursor-pointer"
+                  referrerPolicy="no-referrer"
                   onClick={() => setDropdownOpen(!dropdownOpen)}
                 />
                 {dropdownOpen && (
-                  <div className="absolute right-0 mt-2 w-40 rounded-lg shadow-lg bg-white">
+                  <div className="absolute right-0 mt-2 w-40 bg-white text-slate-800 rounded-lg shadow-lg z-50">
                     <button
                       onClick={handleLogout}
-                      className="block w-full bg-red-500 text-white text-center px-4 py-2 rounded-lg hover:bg-red-600 transition"
+                      className="w-full text-center py-2 bg-rose-600 hover:bg-rose-700 text-white rounded-md transition"
                     >
                       Logout
                     </button>
@@ -199,19 +89,110 @@ export default function Navbar() {
             <div className="flex gap-4">
               <NavLink
                 to="/auth/login"
-                className="bg-accent text-white px-4 py-2 rounded-md hover:bg-secondary"
+                className="bg-emerald-600 px-4 py-2 rounded-md text-white hover:bg-emerald-700 transition"
               >
                 Login
               </NavLink>
               <NavLink
                 to="/auth/register"
-                className="bg-secondary text-white px-4 py-2 rounded-md hover:bg-accent"
+                className="bg-emerald-700 px-4 py-2 rounded-md text-white hover:bg-emerald-800 transition"
               >
                 Register
               </NavLink>
             </div>
           )}
         </div>
+      </div>
+
+      {/* Mobile drawer */}
+      <div
+        className={`sm:hidden fixed top-0 right-0 h-full w-64 bg-white text-slate-800 transform transition-transform duration-300 z-40 shadow-lg ${
+          menuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
+        <div className="flex justify-between items-center px-4 py-4 border-b border-slate-200">
+          <h2 className="text-lg font-bold text-emerald-600">Menu</h2>
+          <button onClick={() => setMenuOpen(false)}>
+            <svg
+              className="w-6 h-6 text-slate-800"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              strokeWidth="2"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <ul className="p-4 space-y-4">
+          <li>
+            <Link
+              to="/"
+              className="block text-lg text-slate-800 hover:text-emerald-600"
+              onClick={() => setMenuOpen(false)}
+            >
+              Home
+            </Link>
+          </li>
+          <li>
+            <Link
+              to="/contact"
+              className="block text-lg text-slate-800 hover:text-emerald-600"
+              onClick={() => setMenuOpen(false)}
+            >
+              Contact Us
+            </Link>
+          </li>
+          {user ? (
+            <>
+              <li>
+                <Link
+                  to="/dashboard"
+                  className="block text-lg text-slate-800 hover:text-emerald-600"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+              </li>
+              <li>
+                <button
+                  className="w-full bg-rose-600 text-white py-2 rounded-md hover:bg-rose-700"
+                  onClick={() => {
+                    handleLogout();
+                    setMenuOpen(false);
+                  }}
+                >
+                  Logout
+                </button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink
+                  to="/auth/login"
+                  className="block w-full bg-emerald-600 text-white text-center py-2 rounded-md hover:bg-emerald-700"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  to="/auth/register"
+                  className="block w-full bg-emerald-700 text-white text-center py-2 rounded-md hover:bg-emerald-800"
+                  onClick={() => setMenuOpen(false)}
+                >
+                  Register
+                </NavLink>
+              </li>
+            </>
+          )}
+        </ul>
       </div>
     </nav>
   );

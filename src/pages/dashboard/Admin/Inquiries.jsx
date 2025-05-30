@@ -17,7 +17,7 @@ export default function Inquiries() {
   return (
     <div className="container mx-auto px-4 py-6 bg-background">
       <Helmet>
-        <title>Inquiries | WorkForce Pro</title>
+        <title>Inquiries | Sync Force</title>
       </Helmet>
       <h2 className="text-2xl font-bold text-primary mb-6">Public Inquiries</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">

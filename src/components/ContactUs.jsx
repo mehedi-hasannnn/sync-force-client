@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { FaMapMarkerAlt, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
+import { FaLocationArrow, FaPhoneSquareAlt, FaRegEnvelopeOpen } from "react-icons/fa";
 import useAxiosPublic from "../customHooks/useAxiosPublic";
 
 const ContactUs = () => {
@@ -11,65 +11,74 @@ const ContactUs = () => {
     const form = new FormData(e.target);
     const email = form.get("email");
     const message = form.get("message");
-    const newMessage = {
-      email: email,
-      message: message,
-    };
+    const newMessage = { email, message };
     const { data } = await axiosPublic.post("/messages", newMessage);
 
     if (data.insertedId) {
-      setStatus("message send successfully");
+      setStatus("Message sent successfully");
       setTimeout(() => setStatus(""), 3000);
     } else {
-      setStatus("message failed");
+      setStatus("Message failed");
       setTimeout(() => setStatus(""), 3000);
     }
     e.target.reset();
   };
 
   return (
-    <div className=" py-10">
-      {/* Section Header */}
-      <div className="text-center max-w-4xl w-full mx-auto bg-white pt-4 rounded-t-lg">
-        <h2 className="text-primary text-3xl md:text-4xl font-bold mb-6">
-          Let’s Start a Conversation
+    <div className="py-12 bg-[#f8fafc]">
+      {/* Header */}
+      <div className="text-center max-w-4xl mx-auto bg-white pt-6 rounded-t-xl shadow-md">
+        <h2 className="text-[#1d3557] text-4xl font-extrabold mb-4">
+          Get in Touch with Us
         </h2>
-        <p className="text-secondary pb-6 md:pb-8 md:w-10/12 lg:w-7/12 mx-auto border-b">
-          We value your feedback and inquiries. Whether you’re looking for
-          support or simply want to connect, we’re just a message away.
+        <p className="text-[#6c757d] pb-6 md:pb-8 md:w-10/12 lg:w-7/12 mx-auto border-b border-gray-200">
+          Have questions or feedback? We’re here to help. Reach out to us and
+          our team will respond as soon as possible.
         </p>
       </div>
-      <div className="bg-gray-100 flex items-center justify-center">
-        <div className="max-w-4xl w-full bg-white rounded-b-lg shadow-lg">
-          {/* Content */}
+
+      {/* Main content */}
+      <div className="flex items-center justify-center bg-[#f8fafc]">
+        <div className="max-w-4xl w-full bg-white rounded-b-xl shadow-lg">
           <div className="grid grid-cols-1 md:grid-cols-2">
-            {/* Address */}
-            <div className="p-6 md:border-r border-gray-300">
-              <div className="space-y-4">
-                <div className="flex items-start space-x-2">
-                  <FaMapMarkerAlt className="text-primary mt-1" />
-                  <p className="text-gray-700">
-                    123 Sports Lane, Fitness City, FC 45678
-                  </p>
+            {/* Contact Info */}
+            <div className="p-8 md:border-r border-gray-200 bg-[#f1f5f9]">
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <FaLocationArrow className="text-[#457b9d] text-2xl mt-1" />
+                  <div>
+                    <p className="text-gray-800 font-semibold">Our Office</p>
+                    <p className="text-gray-600 text-sm">
+                      123 Fitness Blvd, Wellness City, WC 45678
+                    </p>
+                  </div>
                 </div>
-                <div className="flex items-start space-x-2">
-                  <FaPhoneAlt className="text-primary mt-1" />
-                  <p className="text-gray-700">+1 (123) 456-7890</p>
+                <div className="flex items-start space-x-4">
+                  <FaPhoneSquareAlt className="text-[#457b9d] text-2xl mt-1" />
+                  <div>
+                    <p className="text-gray-800 font-semibold">Call Us</p>
+                    <p className="text-gray-600 text-sm">+1 (800) 555-6789</p>
+                  </div>
                 </div>
-                <div className="flex items-start space-x-2">
-                  <FaEnvelope className="text-primary mt-1" />
-                  <p className="text-gray-700">contact@sportstore.com</p>
+                <div className="flex items-start space-x-4">
+                  <FaRegEnvelopeOpen className="text-[#457b9d] text-2xl mt-1" />
+                  <div>
+                    <p className="text-gray-800 font-semibold">Email Us</p>
+                    <p className="text-gray-600 text-sm">
+                      support@sportstore.com
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Contact Form */}
-            <div className="p-6">
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-gray-700 font-medium mb-1"
+                    className="block text-gray-700 font-semibold mb-1"
                   >
                     Email Address
                   </label>
@@ -78,34 +87,36 @@ const ContactUs = () => {
                     id="email"
                     name="email"
                     required
-                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-accent focus:outline-none"
-                    placeholder="Enter your email"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#457b9d] focus:outline-none"
+                    placeholder="you@example.com"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-gray-700 font-medium mb-1"
+                    className="block text-gray-700 font-semibold mb-1"
                   >
-                    Message
+                    Your Message
                   </label>
                   <textarea
                     id="message"
                     name="message"
                     rows="5"
                     required
-                    className="w-full px-4 py-2 border rounded-md focus:ring-2 focus:ring-accent focus:outline-none"
-                    placeholder="Type your message"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#457b9d] focus:outline-none"
+                    placeholder="Write your message here..."
                   ></textarea>
                 </div>
                 <button
                   type="submit"
-                  className="w-full bg-primary hover:bg-secondary text-white font-medium py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-accent"
+                  className="w-full bg-[#1d3557] hover:bg-[#264c80] text-white font-semibold py-3 rounded-lg transition duration-200 focus:outline-none focus:ring-2 focus:ring-[#457b9d]"
                 >
                   Send Message
                 </button>
                 {status && (
-                  <p className="text-center text-accent mt-2">{status}</p>
+                  <p className="text-center text-[#38b000] font-medium mt-2">
+                    {status}
+                  </p>
                 )}
               </form>
             </div>

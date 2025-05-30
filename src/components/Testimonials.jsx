@@ -1,95 +1,76 @@
 import React from "react";
 import Marquee from "react-fast-marquee";
-
+import { FaQuoteLeft } from "react-icons/fa";
 
 const testimonials = [
   {
     id: 1,
-    name: "Axd Ab",
-    title: "CEO at TechCorp",
+    name: "Alex D. Barrett",
+    title: "CEO, TechNova",
     feedback:
-      "This company revolutionized our workflow. The employee management tools are intuitive and highly efficient!",
-    image: "https://i.ibb.co.com/PQ9K6cZ/logo.png",
+      "Sync Force has redefined our operations. The user experience is flawless, and the automation tools have saved us countless hours.",
+    image: "https://i.ibb.co/B57jwtVK/client1.jpg",
   },
   {
     id: 2,
     name: "Jane Smith",
-    title: "HR Manager at SoftSolutions",
+    title: "HR Lead, SoftSolutions",
     feedback:
-      "Amazing service! Their HR solutions simplified our recruitment process beyond expectations.",
-    image: "https://i.ibb.co.com/3z2ZQg6/1.jpg",
+      "A game-changer for our HR team. Seamless onboarding, smart analytics, and phenomenal support!",
+    image: "https://i.ibb.co/NdfSh6bV/client2.jpg",
   },
   {
     id: 3,
-    name: "King Gopy",
-    title: "Operations Head at FastFlow",
+    name: "Emily Davis",
+    title: "Director of Ops, FlowEdge",
     feedback:
-      "The payroll processing feature has saved us hours of work every month. Highly recommend their tools!",
-    image: "https://i.ibb.co.com/cYsQCFb/6.jpg",
+      "The payroll tools and employee tracking system have streamlined everything. Truly impressive work.",
+    image: "https://i.ibb.co/xKvjLC8W/client3.jpg",
   },
   {
     id: 4,
-    name: "Emily Davis",
-    title: "Project Manager at InnovateX",
+    name: "Micheal Reed",
+    title: "Project Manager, InnovateX",
     feedback:
-      "Performance tracking has never been easier. The analytics and insights are invaluable for growth.",
-    image: "https://i.ibb.co.com/nmv8DDS/5.jpg",
-  },
-  {
-    id: 5,
-    name: "Mike Johnson",
-    title: "Operations Head at FastFlow",
-    feedback:
-      "The payroll processing feature has saved us hours of work every month. Highly recommend their tools!",
-    image: "https://i.ibb.co.com/cYsQCFb/6.jpg",
-  },
-  {
-    id: 6,
-    name: "Emily Davis",
-    title: "Project Manager at InnovateX",
-    feedback:
-      "Performance tracking has never been easier. The analytics and insights are invaluable for growth.",
-    image: "https://i.ibb.co.com/nmv8DDS/5.jpg",
+      "Real-time insights and KPI tracking make team performance easy to monitor. Highly recommended!",
+    image: "https://i.ibb.co/q38p3ynF/client4.jpg",
   },
 ];
 
 export default function Testimonials() {
   return (
-    <section className="py-16 mx-4 lg:mx-14">
-      <div className=" shadow-md py-4">
-        <h2 className="text-primary text-3xl md:text-4xl font-bold mb-6 text-center">
-        Trusted by Professionals
+    <section className="py-16 bg-gray-100">
+      <div className="mx-4 lg:mx-14 text-center">
+        {/* Section Header */}
+        <h2 className="text-gray-800 text-3xl md:text-4xl font-bold mb-6">
+          What Our Clients Say
         </h2>
-        <p className="text-lg text-secondary text-center mb-6 md:mb-12 md:w-10/12 lg:w-7/12 mx-auto">
-        Discover how WorkForce Pro has transformed workplaces across industries. Hear from our happy clients about their success stories and how our tools have made their workflows seamless and efficient.
+        <p className="text-lg text-gray-600 mb-12 md:w-10/12 lg:w-7/12 mx-auto">
+          We’re proud to support industry leaders with solutions that
+          drive impact. Here’s what our partners are saying about their
+          experience with Sync Force.
         </p>
 
         {/* Marquee Slider */}
-        <Marquee
-          gradient={false}
-          speed={70}
-          pauseOnHover={false}
-          className="testimonials-marquee"
-        >
+        <Marquee gradient={false} speed={60} pauseOnHover={true}>
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="flex flex-col items-center w-64 bg-accent text-white rounded-lg p-6 mx-4 text-center"
+              className="flex flex-col items-center justify-between w-72 bg-white rounded-xl shadow-lg mx-4 px-6 py-8 border border-gray-200"
             >
+              <FaQuoteLeft className="text-2xl text-primary mb-3" />
+              <p className="text-gray-700 text-sm italic mb-6">
+                {testimonial.feedback}
+              </p>
               <img
                 src={testimonial.image}
                 alt={testimonial.name}
-                className="w-20 h-20 rounded-full mb-4 border-4 border-accent"
+                className="w-16 h-16 rounded-full mb-2 border-2 border-primary object-cover"
               />
-              <h3 className="text-xl font-semibold ">
+              <h3 className="text-base font-semibold text-gray-900">
                 {testimonial.name}
               </h3>
-              <p className="text-sm italic text-white/90">
-                {testimonial.title}
-              </p>
-              <p className="mt-4 text-text/80">
-                {testimonial.feedback}
-              </p>
+              <p className="text-sm text-gray-500">{testimonial.title}</p>
             </div>
           ))}
         </Marquee>

@@ -54,7 +54,7 @@ export default function Login() {
   return (
     <div className="flex items-center justify-center bg-gray-100 min-h-screen p-4">
       <Helmet>
-        <title>Login | WorkForce Pro</title>
+        <title>Login | Sync Force</title>
       </Helmet>
       <div className="flex flex-col lg:flex-row shadow-lg rounded-lg bg-white max-w-4xl w-full">
         {/* Left */}

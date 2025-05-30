@@ -33,7 +33,7 @@ export default function EmployeeDetails() {
   return (
     <div className="container mx-auto px-4 py-6">
       <Helmet>
-        <title>{userDetails.name} | WorkForce Pro</title>
+        <title>{userDetails.name} | Sync Force</title>
       </Helmet>
       <h2 className="text-2xl font-bold text-gray-600 mb-6">
         Employee Details

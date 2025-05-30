@@ -90,7 +90,7 @@ export default function WorkSheet() {
   return (
     <div>
       <Helmet>
-        <title>Work Sheet | WorkForce Pro</title>
+        <title>Work Sheet | Sync Force</title>
       </Helmet>
       <h2 className="text-primary text-2xl font-bold mb-4">Work Sheet</h2>
 
