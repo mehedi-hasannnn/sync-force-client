@@ -52,67 +52,64 @@ export default function Payroll() {
   });
 
   return (
-    <div className="container mx-auto px-4 py-6">
-       <Helmet>
-              <title>Payroll | Sync Force</title>
-            </Helmet>
-      <h2 className="text-2xl font-bold text-primary mb-6">Employee Payroll</h2>
+    <div className="container mx-auto px-6 py-8 bg-gray-50 min-h-screen">
+      <Helmet>
+        <title>Payroll | Sync Force</title>
+      </Helmet>
+      <h2 className="text-3xl font-semibold text-indigo-700 mb-8 border-b-2 border-indigo-300 pb-2">
+        Employee Payroll
+      </h2>
 
       {/* Table */}
-      <div className="overflow-x-auto">
-        <table className="min-w-full border-collapse border border-gray-300">
-          <thead className="bg-gray-100">
+      <div className="overflow-x-auto rounded-lg shadow-md bg-white border border-gray-200">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-indigo-100">
             <tr>
-              <th className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">
-                Name
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">
-                Salary
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">
-                Month
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">
-                Year
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">
-                Payment Date
-              </th>
-              <th className="border border-gray-300 px-4 py-2 text-left text-sm font-medium text-gray-700">
-                Pay
-              </th>
+              {["Name", "Salary", "Month", "Year", "Payment Date", "Pay"].map(
+                (header) => (
+                  <th
+                    key={header}
+                    className="px-6 py-3 text-left text-sm font-medium text-indigo-800 tracking-wide"
+                  >
+                    {header}
+                  </th>
+                )
+              )}
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-100">
             {sortedPayroll.map((employee) => (
-              <tr key={employee._id} className="even:bg-gray-50">
-                <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">
+              <tr
+                key={employee._id}
+                className="hover:bg-indigo-50 transition-colors duration-200"
+              >
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">
                   {employee.name}
                 </td>
-                <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">
-                  {employee.salary}
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
+                  ${employee.salary}
                 </td>
-                <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                   {employee.month}
                 </td>
-                <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                   {employee.year}
                 </td>
-                <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">
+                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-700">
                   {employee.payingDate ? employee.payingDate : "Pending"}
                 </td>
-                <td className="border border-gray-300 px-4 py-2 text-sm text-gray-700">
+                <td className="px-6 py-4 whitespace-nowrap text-sm">
                   {employee.paymentStatus === "paid" ? (
                     <button
-                      className="bg-gray-300 text-gray-600 px-3 py-1 rounded cursor-not-allowed"
                       disabled
+                      className="cursor-not-allowed bg-indigo-200 text-indigo-600 px-4 py-1 rounded-lg font-semibold"
                     >
                       Paid
                     </button>
                   ) : (
                     <button
                       onClick={() => openModal(employee)}
-                      className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600"
+                      className="bg-indigo-600 text-white px-4 py-1 rounded-lg font-semibold hover:bg-indigo-700 transition-colors duration-300"
                     >
                       Pay
                     </button>

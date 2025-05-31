@@ -18,10 +18,9 @@ export default function WorkSheet() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
 
-  // form state
   const mainForm = useForm();
   const { register, handleSubmit, control, reset } = mainForm;
-  // modal form state
+
   const modalForm = useForm();
   const {
     register: modalRegister,
@@ -30,7 +29,6 @@ export default function WorkSheet() {
     setValue,
   } = modalForm;
 
-  //form handler
   const onSubmit = async (data) => {
     const newTask = {
       employee_name: user.displayName,
@@ -47,7 +45,6 @@ export default function WorkSheet() {
     }
   };
 
-  // task elete handler
   const handleDeleteTask = async (task) => {
     const { data } = await axiosSecure.delete(`/tasks/${task._id}`);
     if (data.deletedCount > 0) {
@@ -56,7 +53,6 @@ export default function WorkSheet() {
     }
   };
 
-  // open modal
   const openEditModal = (task) => {
     setSelectedTask(task);
     setValue("edit_task", task.task);
@@ -65,7 +61,6 @@ export default function WorkSheet() {
     setIsModalOpen(true);
   };
 
-  // modal form handler
   const handleEditSubmit = async (data) => {
     const updatedTask = {
       task: data.edit_task,
@@ -77,7 +72,7 @@ export default function WorkSheet() {
       updatedTask
     );
     if (updated.modifiedCount > 0) {
-      toast.success("Sccessfully updated");
+      toast.success("Successfully updated");
       refetch();
       setIsModalOpen(false);
     }
@@ -88,22 +83,23 @@ export default function WorkSheet() {
   }
 
   return (
-    <div>
+    <div className="p-4 md:p-6 bg-[#f9fafb] min-h-screen">
       <Helmet>
         <title>Work Sheet | Sync Force</title>
       </Helmet>
-      <h2 className="text-primary text-2xl font-bold mb-4">Work Sheet</h2>
 
-      {/*Form */}
+      <h2 className="text-3xl font-bold text-gray-800 mb-6 border-b pb-2">
+        Work Sheet
+      </h2>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className={`flex flex-wrap items-center gap-4 p-4 lg:flex-nowrap lg:gap-6 mb-6`}
+        className="flex flex-col md:flex-row items-stretch gap-4 mb-8"
       >
-        {/* Task Select */}
         <select
           {...register("task", { required: true })}
           defaultValue={""}
-          className="border p-2 rounded text-sm w-full max-w-md lg:w-auto"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full md:w-1/4 text-sm bg-white"
           disabled={isModalOpen}
         >
           <option disabled value={""}>
@@ -115,16 +111,14 @@ export default function WorkSheet() {
           <option>Paper-work</option>
         </select>
 
-        {/* Hours Worked Input */}
         <input
           type="number"
           {...register("work_duration", { required: true })}
           placeholder="Hours Worked"
-          className="border p-2 rounded text-sm w-full max-w-md lg:w-auto"
+          className="border border-gray-300 rounded-lg px-3 py-2 w-full md:w-1/4 text-sm"
           disabled={isModalOpen}
         />
 
-        {/* Date Picker */}
         <Controller
           name="date"
           control={control}
@@ -132,86 +126,87 @@ export default function WorkSheet() {
           rules={{ required: true }}
           render={({ field }) => (
             <DatePicker
-              selected={field.value}
-              onChange={(date) => field.onChange(date)}
-              className="border p-2 rounded text-sm w-full max-w-md lg:w-auto"
-              disabled={isModalOpen}
-            />
+  selected={field.value}
+  onChange={(date) => field.onChange(date)}
+  className="border border-gray-300 p-2 rounded-md text-sm w-full max-w-md lg:w-auto focus:outline-none focus:ring-2 focus:ring-primary"
+  disabled={isModalOpen}
+  dateFormat="MMMM d, yyyy"
+  showMonthDropdown
+  showYearDropdown
+  dropdownMode="select"
+/>
+
           )}
         />
 
-        {/* Submit Button */}
         <button
           type="submit"
-          className="bg-primary text-white px-4 py-2 rounded w-full max-w-md lg:w-auto"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm transition"
           disabled={isModalOpen}
         >
           Add
         </button>
       </form>
 
-      {/* Table */}
-      <table className="w-full border-collapse border border-primary">
-        <thead>
-          <tr className="bg-secondary text-white">
-            <th className="p-2">Task</th>
-            <th className="p-2">Hours</th>
-            <th className="p-2">Date</th>
-            <th className="p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {tasks.map((task) => (
-            <tr
-              key={task._id}
-              className="odd:bg-background even:bg-accent/10 text-center"
-            >
-              <td className="p-2">{task.task}</td>
-              <td className="p-2">{task.hours}</td>
-              <td className="p-2">{new Date(task.date).toDateString()}</td>
-              <td className="p-2">
-                <button
-                  className="text-primary hover:text-secondary"
-                  onClick={() => openEditModal(task)}
-                >
-                  <FiEdit size={20} />
-                </button>
-
-                <button
-                  onClick={() => handleDeleteTask(task)}
-                  className="text-secondary hover:text-accent"
-                >
-                  <FiTrash size={20} />
-                </button>
-              </td>
-            </tr>
-          ))}
-          {tasks.length === 0 && (
+      <div className="overflow-x-auto rounded shadow bg-white">
+        <table className="min-w-full text-sm">
+          <thead className="bg-blue-600 text-white">
             <tr>
-              <td
-                colSpan="4"
-                className="border border-gray-300 px-4 py-2 text-center text-sm text-gray-500"
-              >
-                No records found.
-              </td>
+              <th className="p-3 text-left">Task</th>
+              <th className="p-3 text-left">Hours</th>
+              <th className="p-3 text-left">Date</th>
+              <th className="p-3 text-center">Actions</th>
             </tr>
-          )}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {tasks.map((task) => (
+              <tr
+                key={task._id}
+                className="border-t hover:bg-gray-50 transition"
+              >
+                <td className="p-3">{task.task}</td>
+                <td className="p-3">{task.hours}</td>
+                <td className="p-3">{new Date(task.date).toDateString()}</td>
+                <td className="p-3 flex justify-center gap-4">
+                  <button
+                    className="text-blue-600 hover:text-blue-800"
+                    onClick={() => openEditModal(task)}
+                  >
+                    <FiEdit size={18} />
+                  </button>
+                  <button
+                    onClick={() => handleDeleteTask(task)}
+                    className="text-red-600 hover:text-red-800"
+                  >
+                    <FiTrash size={18} />
+                  </button>
+                </td>
+              </tr>
+            ))}
+            {tasks.length === 0 && (
+              <tr>
+                <td colSpan="4" className="p-4 text-center text-gray-500">
+                  No records found.
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
 
-      {/* modal */}
+      {/* Edit Modal */}
       <Modal
         isOpen={isModalOpen}
         onRequestClose={() => setIsModalOpen(false)}
         contentLabel="Edit Task"
-        className="bg-white p-6 rounded shadow-lg max-w-md mx-auto mt-10"
-        overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+        className="bg-white p-6 rounded-lg shadow-xl w-full max-w-lg mx-auto mt-20"
+        overlayClassName="fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50"
       >
-        <h2 className="text-xl font-bold mb-4">Edit Task</h2>
+        <h2 className="text-xl font-semibold mb-4 text-gray-800">Edit Task</h2>
         <form onSubmit={modalHandleSubmit(handleEditSubmit)}>
           <select
             {...modalRegister("edit_task", { required: true })}
-            className="border p-2 rounded w-full mb-4"
+            className="border border-gray-300 rounded-lg px-3 py-2 w-full mb-4 text-sm"
           >
             <option>Sales</option>
             <option>Support</option>
@@ -223,7 +218,7 @@ export default function WorkSheet() {
             type="number"
             {...modalRegister("edit_work_duration", { required: true })}
             placeholder="Hours Worked"
-            className="border p-2 rounded w-full mb-4"
+            className="border border-gray-300 rounded-lg px-3 py-2 w-full mb-4 text-sm"
           />
 
           <Controller
@@ -233,26 +228,31 @@ export default function WorkSheet() {
             rules={{ required: true }}
             render={({ field }) => (
               <DatePicker
-                selected={field.value}
-                onChange={(date) => field.onChange(date)}
-                className="border p-2 rounded w-full mb-4"
-              />
+  selected={field.value}
+  onChange={(date) => field.onChange(date)}
+  className="border border-gray-300 p-2 rounded-md text-sm w-full focus:outline-none focus:ring-2 focus:ring-primary"
+  dateFormat="MMMM d, yyyy"
+  showMonthDropdown
+  showYearDropdown
+  dropdownMode="select"
+/>
+
             )}
           />
 
-          <div className="flex gap-4">
+          <div className="flex justify-end gap-4">
             <button
               type="submit"
-              className="bg-primary text-white px-4 py-2 rounded"
+              className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition"
             >
               Update
             </button>
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="bg-gray-300 text-black px-4 py-2 rounded"
+              className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg text-sm transition"
             >
-              Close
+              Cancel
             </button>
           </div>
         </form>

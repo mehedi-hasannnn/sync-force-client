@@ -57,7 +57,6 @@ export default function EmployeeList() {
     };
 
     try {
-      // Send payment request to the server
       const response = await axiosSecure.post("/payments", newPayment);
       if (response.status === 201) {
         toast.success("Payment request sent to Admin");
@@ -89,17 +88,17 @@ export default function EmployeeList() {
         accessorKey: "isVerified",
         cell: ({ row }) => (
           <button
-            className={`px-3 py-1 rounded-md ${
+            className={`px-3 py-1 rounded-full text-white transition ${
               row.original.isVerified
-                ? "bg-green-500 text-white"
-                : "bg-red-500 text-white"
+                ? "bg-emerald-500 hover:bg-emerald-600"
+                : "bg-rose-500 hover:bg-rose-600"
             }`}
             onClick={() => handleVerified(row.original)}
           >
             {row.original.isVerified ? (
-              <AiOutlineCheck size={20} />
+              <AiOutlineCheck size={18} />
             ) : (
-              <AiOutlineClose size={20} />
+              <AiOutlineClose size={18} />
             )}
           </button>
         ),
@@ -117,9 +116,9 @@ export default function EmployeeList() {
         header: "Pay",
         cell: ({ row }) => (
           <button
-            className={`px-4 py-2 rounded-md ${
+            className={`px-4 py-2 rounded-lg text-sm font-medium transition ${
               row.original.isVerified
-                ? "bg-primary text-white"
+                ? "bg-blue-600 text-white hover:bg-blue-700"
                 : "bg-gray-300 text-gray-500 cursor-not-allowed"
             }`}
             onClick={() => {
@@ -138,7 +137,7 @@ export default function EmployeeList() {
         header: "Details",
         cell: ({ row }) => (
           <Link to={`/dashboard/employee-details/${row.original.email}`}>
-            <button className="px-4 py-2 bg-accent text-white rounded-md">
+            <button className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-sm rounded-lg transition">
               Details
             </button>
           </Link>
@@ -163,17 +162,18 @@ export default function EmployeeList() {
       <Helmet>
         <title>Employees | Sync Force</title>
       </Helmet>
-      <div className="container mx-auto px-4 py-6">
-        <h2 className="text-2xl font-bold text-primary mb-4">Employee List</h2>
+      <div className="container mx-auto px-6 py-8">
+        <h2 className="text-3xl font-semibold text-gray-800 mb-6">
+          Employee List
+        </h2>
 
-        {/* Table */}
-        <div className="overflow-x-auto shadow-md rounded-lg">
-          <table className="min-w-full bg-white rounded-lg shadow-md">
-            <thead className="bg-primary text-white">
+        <div className="overflow-x-auto rounded-xl shadow-md bg-white">
+          <table className="min-w-full divide-y divide-gray-200">
+            <thead className="bg-gray-100 text-gray-700 text-sm">
               {table.getHeaderGroups().map((headerGroup) => (
                 <tr key={headerGroup.id}>
                   {headerGroup.headers.map((header) => (
-                    <th key={header.id} className="px-6 py-3 text-left">
+                    <th key={header.id} className="px-6 py-4 text-left font-medium">
                       {flexRender(
                         header.column.columnDef.header,
                         header.getContext()
@@ -183,11 +183,11 @@ export default function EmployeeList() {
                 </tr>
               ))}
             </thead>
-            <tbody>
+            <tbody className="text-gray-700 text-sm divide-y divide-gray-100">
               {table.getRowModel().rows.map((row) => (
-                <tr key={row.id} className="border-b hover:bg-gray-100">
+                <tr key={row.id} className="hover:bg-gray-50 transition">
                   {row.getVisibleCells().map((cell) => (
-                    <td key={cell.id} className="px-6 py-3">
+                    <td key={cell.id} className="px-6 py-4 whitespace-nowrap">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()
@@ -200,7 +200,7 @@ export default function EmployeeList() {
           </table>
         </div>
 
-        {/* PayModal */}
+        {/* Pay Modal */}
         <PayModal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}

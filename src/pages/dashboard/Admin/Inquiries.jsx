@@ -19,7 +19,7 @@ export default function Inquiries() {
       <Helmet>
         <title>Inquiries | Sync Force</title>
       </Helmet>
-      <h2 className="text-2xl font-bold text-primary mb-6">Public Inquiries</h2>
+      <h2 className="text-2xl font-bold text-green-800 mb-6">Public Inquiries</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {inquiries.map((inquiry, index) => (
           <div
@@ -29,7 +29,7 @@ export default function Inquiries() {
             <h3 className="text-lg font-semibold text-primary">
               {inquiry.email}
             </h3>
-            <p className="text-secondary">{inquiry.message}</p>
+            <p className="text-black">{inquiry.message}</p>
           </div>
         ))}
       </div>

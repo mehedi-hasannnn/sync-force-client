@@ -28,7 +28,7 @@ export default function DashBoardLayout() {
       to={to}
       className={({ isActive }) =>
         `flex items-center gap-3 py-2 px-4 rounded-xl transition-all ${
-          isActive ? "bg-secondary text-white" : "hover:bg-secondary/80"
+          isActive ? "bg-indigo-600 text-white" : "hover:bg-indigo-700 text-indigo-100"
         }`
       }
     >
@@ -61,7 +61,7 @@ export default function DashBoardLayout() {
         </>
       )}
 
-      <div className="border-t border-white/30 my-4"></div>
+      <div className="border-t border-indigo-700 my-4"></div>
 
       {user && renderNavLink("/", <FaHome className="text-lg" />, "Home")}
     </nav>
@@ -70,7 +70,7 @@ export default function DashBoardLayout() {
   return (
     <div className="flex flex-col lg:flex-row min-h-screen bg-background text-text">
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:flex flex-col w-64 bg-primary text-white p-6 sticky top-0 h-screen overflow-y-auto">
+      <aside className="hidden lg:flex flex-col w-64 bg-slate-900 text-gray-100 p-6 sticky top-0 h-screen overflow-y-auto">
         <Link to="/" className="mb-6">
           <h2 className="text-2xl font-bold tracking-wide">Sync Force</h2>
         </Link>
@@ -78,8 +78,10 @@ export default function DashBoardLayout() {
       </aside>
 
       {/* Mobile Navbar */}
-      <nav className="lg:hidden flex items-center justify-between bg-primary text-white p-4 sticky top-0 z-30">
-        <Link to="/" className="text-xl font-bold">Sync Force</Link>
+      <nav className="lg:hidden flex items-center justify-between bg-indigo-800 text-indigo-100 p-4 sticky top-0 z-30">
+        <Link to="/" className="text-xl font-bold">
+          Sync Force
+        </Link>
         <button onClick={() => setIsDrawerOpen(true)}>
           <FaBars className="text-2xl" />
         </button>
@@ -92,7 +94,7 @@ export default function DashBoardLayout() {
             className="fixed inset-0 bg-black/60 z-40"
             onClick={() => setIsDrawerOpen(false)}
           ></div>
-          <div className="fixed top-0 right-0 h-full w-64 bg-primary text-white p-6 z-50 shadow-xl overflow-y-auto">
+          <div className="fixed top-0 right-0 h-full w-64 bg-slate-900 text-gray-100 p-6 z-50 shadow-xl overflow-y-auto">
             <div className="flex justify-end mb-4">
               <button onClick={() => setIsDrawerOpen(false)}>
                 <FaTimes className="text-2xl" />
